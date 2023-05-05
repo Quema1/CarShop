@@ -1,0 +1,33 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var linkItem = (LinkItem)Model.Content;
+}
+
+@{
+    var childLinks = linkItem.ChildPage;
+    
+    if (childLinks!= null && childLinks.Any())
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="@linkItem.ParentPage.Url" role="button" aria-haspopup="true" aria-expanded="false">
+                @linkItem.Title
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="@linkItem.ParentPage.Url">@linkItem.ParentPage.Name</a></li>
+                @foreach (var link in childLinks)
+                {
+                    <li><a class="dropdown-item" href="@link.Url">@link.Name</a></li>
+                }
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="@linkItem.ParentPage.Url">@linkItem.Title</a>
+        </li>
+    }
+}
+    

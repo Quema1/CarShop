@@ -1,0 +1,57 @@
+﻿@model CarShop.Models.NavigationViewModel
+@using Umbraco.Cms.Web.Common;
+@using Umbraco.Cms.Core.Services
+
+@{
+    var links = Model.Settings.Links;
+    var cultures = Model.AvailableCultures;
+}
+<header>
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a href="/" class=" link-body-emphasis text-decoration-none nav-link active" aria-current="page">
+                            <i class="bi bi-car-front-fill"></i>
+                        </a>    
+                    </li>
+
+                    <li class="nav-item flex-row">
+
+                        @foreach (var link in links)
+                        {
+                            if (link?.ContentUdi == null)
+                            {
+                                continue;
+                            }
+                            var data = link.Content;
+
+                            @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, link)
+                        }
+                    </li>
+                
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            @Model.Culture
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            @foreach (var (culture, cultureName) in cultures)
+                            {
+                                <li><a href="@Model.Content.Url(culture)" class="dropdown-item">@cultureName</a></li>
+                            }
+                        </ul>
+                    </li>   
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

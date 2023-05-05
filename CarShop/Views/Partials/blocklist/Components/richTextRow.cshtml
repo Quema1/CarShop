@@ -1,0 +1,11 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var row = (RichTextRow)Model.Content;
+}
+<div class ="row gx-4 gx-lg-5 justify-content-center">
+    <div class = "col-md-10 col-lg-8 col-xl-7">
+        @row.RichText
+    </div>
+</div>

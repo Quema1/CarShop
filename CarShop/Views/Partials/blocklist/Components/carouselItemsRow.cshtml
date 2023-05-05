@@ -1,0 +1,59 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>
+@using Umbraco.Cms.Web.Common.PublishedModels;
+
+@{
+    var row = (CarouselItemsRow)Model.Content;
+    
+    if(row.CarouselSlides == null || !row.CarouselSlides.Any()) return;
+    var carouselId = "carousel-" + row.Key;
+    var itemCount = row.CarouselSlides.Count;
+}
+
+
+<div id="@carouselId" class="carousel carousel-dark slide mt-5">
+    <div class="carousel-indicators">
+        @for (var slideIndex = 0; slideIndex < itemCount; slideIndex++)
+        {
+            var isFirst = slideIndex == 0;
+            <button type="button" data-bs-target="#@carouselId" data-bs-slide-to="@slideIndex" class="@(isFirst ? "active" : null)" aria-current="@isFirst" aria-label="Slide @(slideIndex + 1)"></button>
+        }
+    </div>
+
+
+    <div class="carousel-inner">
+        @{
+            var itemIndex = 0;
+
+            @foreach (var item in row.CarouselSlides)
+            {
+                var isFirstSlide = itemIndex == 0;
+                var itemContent = (CarouselItem)item.Content;
+
+                <div class="carousel-item @(isFirstSlide ? "active" : null)">
+                    @if (itemContent.Image != null)
+                    {
+                        <img src="@itemContent.Image.Url()" class="d-block w-100" alt="@itemContent.Image.Name">
+                    }
+                    @if (itemContent.Description != null)
+                    {
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>@itemContent.Description</h5>
+                        </div>
+                    }
+                </div>
+
+                itemIndex++;
+            }
+        }
+    </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#@carouselId" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+
+            <button class="carousel-control-next" type="button" data-bs-target="#@carouselId" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+</div>

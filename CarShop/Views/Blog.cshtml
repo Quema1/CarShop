@@ -1,0 +1,11 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Blog>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterPage.cshtml";
+}
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        @await Html.GetBlockListHtmlAsync(Model.MainContent)
+    </div>
+</main>

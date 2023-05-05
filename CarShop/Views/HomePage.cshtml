@@ -1,0 +1,10 @@
+﻿@inherits UmbracoViewPage<ContentModels.HomePage>
+
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Newtonsoft.Json.Linq
+@using System.Web
+@{
+	Layout = "MasterPage.cshtml";
+}
+
+@await Html.GetBlockListHtmlAsync(Model.MainContent)

@@ -1,0 +1,10 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.CarPage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "MasterPage.cshtml";
+}
+<div class = "container border p-4 " >
+    @await Html.GetBlockListHtmlAsync(Model.MainContent)
+    @await Html.GetBlockListHtmlAsync(Model.Photos)
+</div>
